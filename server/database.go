@@ -17,7 +17,7 @@ func SetupDatabase() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	db.AutoMigrate(&model.Team{})
+	db.AutoMigrate(&model.Team{}, &model.Talent{})
 
 	return db, nil
 }

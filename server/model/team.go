@@ -2,7 +2,6 @@ package model
 
 import "github.com/jinzhu/gorm"
 
-// Default table name is messages
 type Team struct {
 	gorm.Model
 	Name             string `gorm:"type:varchar(100)" json:"team_name"`

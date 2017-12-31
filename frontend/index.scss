@@ -48,14 +48,15 @@ body {
       align-items: flex-start;
       justify-content: flex-start;
       flex-direction: column;
-      overflow: scroll;
-
+      overflow-y: scroll;
+      overflow-x: hidden;
+      
       h1 {
         font-size: 2rem;
       }
 
       .team-item {
-        width: 100%;
+        width: 98%;
         flex-direction: column;
         margin: 0.5rem;
         padding: 0.5rem;
@@ -78,7 +79,8 @@ body {
       align-items: flex-start;
       justify-content: flex-start;
       flex-direction: column;
-      overflow: scroll;
+      overflow-y: scroll;
+      overflow-x: hidden;
 
       h1 {
         font-size: 2rem;
@@ -86,7 +88,7 @@ body {
 
       .talent-item {
         display: inherit;
-        width: 100%;
+        width: 98%;
         margin: 0.5rem;
         flex-direction: row;
 
@@ -96,6 +98,15 @@ body {
           padding: 1rem;
         }
       }
+    }
+
+    .talent-form {
+      width: 960px;
+      display: inherit;
+      height: 100%;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-direction: column;
     }
   }
 

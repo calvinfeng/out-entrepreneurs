@@ -20,7 +20,7 @@ class TeamForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         axios.post("/api/teams", this.state).then((res) => {
-            this.props.handleNavigateToTeam();
+            this.props.handleNavigateToTeams();
         }).catch((err) => {
             console.log(err);
         });
@@ -28,26 +28,24 @@ class TeamForm extends React.Component {
 
     createSelectFieldChangeHandler = (fieldName) => {
       return (e, idx, val) => {
-        console.log(val);
         const newState = Object.assign({}, this.state);
         newState[fieldName] = val;
         this.setState(newState);
-      }
-    }
+      };
+    };
 
     createTextFieldChangeHandler = (fieldName) => {
       return (e, val) => {
-        console.log(val);
         const newState = Object.assign({}, this.state);
         newState[fieldName] = val;
         this.setState(newState);
-      }
-    }
+      };
+    };
 
     getMenuItemsByList = (list) => {
       return list.map((itemName) => {
-        return <MenuItem value={itemName} primaryText={itemName} />;
-      })
+        return <MenuItem value={itemName} primaryText={itemName} key={itemName} />;
+      });
     };
 
     render() {

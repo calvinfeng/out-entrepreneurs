@@ -3,50 +3,78 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import axios from 'axios';
 
+const Schools = ['UCSD', 'SDSU', 'USD', 'Point Loma', 'Other'];
+const Talents = ['Business', 'Marketing', 'Computer Science', 'Electrical Engineer'];
 
 class TalentForm extends React.Component {
-    state = {
-        talentValue: 1,
-        schoolValue: 1
-    };
+  state = {
+    talent: Talents[0],
+    school: Schools[0]
+  };
 
-    handleSubmit = (e) => {
-        alert('Submitting form now!');
-        e.preventDefault();
-    };
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state);
+    axios.post("/api/talents", this.state).then((res) => {
+      this.props.handleNavigateToTalents();
+    }).catch((err) => {
+      console.log(err);
+    });
+  };
 
-    handleChange = (e) => {
-        console.log(e);
+  createSelectFieldChangeHandler = (fieldName) => {
+    return (e, idx, val) => {
+      const newState = Object.assign({}, this.state);
+      newState[fieldName] = val;
+      this.setState(newState);
     };
+  };
 
-    render() {
-        return (
-            <section>
-                <RaisedButton label="home" onClick={this.props.handleClickHome} />
-                <form onSubmit={this.handleSubmit}>
-                    <SelectField floatingLabelText="Talent" value={this.state.talentValue} onChange={this.handleChange}>
-                        <MenuItem value={1} primaryText="Business" />
-                        <MenuItem value={2} primaryText="Marketing" />
-                        <MenuItem value={3} primaryText="Computer Science" />
-                        <MenuItem value={4} primaryText="Electrical Engineer" />
-                    </SelectField><br />
-                    <TextField hintText="Name" /><br />
-                    <TextField hintText="Description" /><br />
-                    <TextField hintText="Contact Info"/><br />
-                    <SelectField floatingLabelText="Schools/Communities" value={this.state.schoolValue} onChange={this.handleChange}>
-                        <MenuItem value={1} primaryText="UCSD" />
-                        <MenuItem value={2} primaryText="SDSU" />
-                        <MenuItem value={3} primaryText="USD" />
-                        <MenuItem value={4} primaryText="Point Loma" />
-                        <MenuItem value={5} primaryText="Other" />
-                    </SelectField><br />
-                    <TextField hintText="Description"/><br />
-                    <input type="submit" label="Submit" />
-                </form>
-            </section>
-        );
-    }
+  createTextFieldChangeHandler = (fieldName) => {
+    return (e, val) => {
+      const newState = Object.assign({}, this.state);
+      newState[fieldName] = val;
+      this.setState(newState);
+    };
+  };
+
+  getMenuItemsByList = (list) => {
+    return list.map((itemName) => {
+      return <MenuItem value={itemName} primaryText={itemName} key={itemName}/>;
+    });
+  };
+
+  render() {
+    return (
+      <section className="talent-form">
+        <form onSubmit={this.handleSubmit}>
+          <SelectField
+            floatingLabelText="Talent"
+            value={this.state.talent}
+            onChange={this.createSelectFieldChangeHandler('talent')}>
+            {this.getMenuItemsByList(Talents)}
+          </SelectField>
+          <br />
+          <TextField hintText="Name" onChange={this.createTextFieldChangeHandler('name')} />
+          <br />
+          <TextField hintText="Description" onChange={this.createTextFieldChangeHandler('description')} />
+          <br />
+          <TextField hintText="Contact Info" onChange={this.createTextFieldChangeHandler('contact_info')} />
+          <br />
+          <SelectField
+            floatingLabelText="Schools/Communities"
+            value={this.state.school}
+            onChange={this.createSelectFieldChangeHandler('school')}>
+            {this.getMenuItemsByList(Schools)}
+          </SelectField>
+          <br />
+          <input type="submit" label="Submit" />
+        </form>
+      </section>
+    );
+  }
 }
 
 export default TalentForm;

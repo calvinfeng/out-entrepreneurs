@@ -37,14 +37,14 @@ class Application extends React.Component {
           case 'talents':
             return <TalentIndex handleNavigateToTalentForm={this.createNavigateHandler('talent-form')} />;
           case 'talent-form':
-            return <TalentForm />;
+            return <TalentForm handleNavigateToTalents={this.createNavigateHandler('talents')} />;
           case 'teams':
             return <TeamIndex handleNavigateToTeamForm={this.createNavigateHandler('team-form')} />;
           case 'team-form':
             return (
               <TeamForm
                 handleNavigateToHome={this.createNavigateHandler('home')}
-                handleNavigateToTeam={this.createNavigateHandler('teams')} />
+                handleNavigateToTeams={this.createNavigateHandler('teams')} />
             );
           case 'about':
             return <About />;
