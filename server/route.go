@@ -4,8 +4,8 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
-	"out-entrepreneurs/server/handler"
 	"net/http"
+	"out-entrepreneurs/server/handler"
 )
 
 func LoadRoutes(db *gorm.DB) http.Handler {
