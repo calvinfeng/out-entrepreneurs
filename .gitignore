@@ -1,0 +1,8 @@
+.idea/
+node_modules/
+*.iml
+server/public/bundle.js
+server/public/bundle.js.map
+server/public/bundle.css
+server/public/bundle.css.map
+*.log
