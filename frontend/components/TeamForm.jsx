@@ -5,6 +5,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import axios from 'axios';
 
+
 const TeamCategories = ['Science', 'Mobile App'];
 const PositionCategories = ['Business', 'Marketing', 'Computer Science', 'Electrical Engineer'];
 const Schools = ['UCSD', 'SDSU', 'USD', 'Point Loma', 'Other'];
@@ -19,85 +20,77 @@ class TeamForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         axios.post("/api/teams", this.state).then((res) => {
-            this.props.handleClickTeam();
+            this.props.handleNavigateToTeam();
         }).catch((err) => {
             console.log(err);
         });
     };
 
-    handleTeamCategoryChange = (e, idx, val) => {
-        this.setState({ team_category: val });
-    };
-
-    handlePositionCategoryChange = (e, idx, val) => {
-        this.setState({ position_category: val });
-    };
-
-    handleSchoolChange = (e, idx, val) => {
-        this.setState({ school: val });
-    };
-
-    handleTeamNameChange = (e, val) => {
-        this.setState({ team_name: val });
-    };
-
-    handlePositionTitleChange = (e, val) => {
-        this.setState({ position_title: val });
-    };
-
-    handleContactInfoChange = (e, val) => {
-        this.setState({ contact_info: val });
-    };
-
-    get teamCategoryItems() {
-        return TeamCategories.map((category) => {
-            return <MenuItem value={category} primaryText={category} />;
-        });
+    createSelectFieldChangeHandler = (fieldName) => {
+      return (e, idx, val) => {
+        console.log(val);
+        const newState = Object.assign({}, this.state);
+        newState[fieldName] = val;
+        this.setState(newState);
+      }
     }
 
-    get positionCategoryItems() {
-        return PositionCategories.map((category) => {
-            return <MenuItem value={category} primaryText={category} />;
-        });
+    createTextFieldChangeHandler = (fieldName) => {
+      return (e, val) => {
+        console.log(val);
+        const newState = Object.assign({}, this.state);
+        newState[fieldName] = val;
+        this.setState(newState);
+      }
     }
 
-    get schoolItems() {
-        return Schools.map((school) => {
-            return <MenuItem value={school} primaryText={school} />;
-        });
-    }
+    getMenuItemsByList = (list) => {
+      return list.map((itemName) => {
+        return <MenuItem value={itemName} primaryText={itemName} />;
+      })
+    };
 
     render() {
-        return (
-            <section>
-                <RaisedButton label="home" onClick={this.props.handleClickHome} />
-                <form onSubmit={this.handleSubmit}>
-                    <TextField hintText="Team Name" onChange={this.handleTeamNameChange} /><br />
-                    <SelectField
-                        floatingLabelText="Team Categories"
-                        value={this.state.team_category}
-                        onChange={this.handleTeamCategoryChange}>
-                        {this.teamCategoryItems}
-                    </SelectField><br />
-                    <TextField hintText="Position Title" onChange={this.handlePositionTitleChange} /><br />
-                    <SelectField
-                        floatingLabelText="Position Categories"
-                        value={this.state.position_category}
-                        onChange={this.handlePositionCategoryChange}>
-                        {this.positionCategoryItems}
-                    </SelectField><br />
-                    <TextField hintText="Contact Info" onChange={this.handleContactInfoChange} /><br />
-                    <SelectField
-                        floatingLabelText="Schools/Communities"
-                        value={this.state.school}
-                        onChange={this.handleSchoolChange}>
-                        {this.schoolItems}
-                    </SelectField><br />
-                    <TextField hintText="Description" multiLine={true} rows={10} rowsMax={20}/><br />
-                    <input type="submit" label="Submit" />
-                </form>
-            </section>
-        );
+      return (
+        <section className="team-form">
+          <form onSubmit={this.handleSubmit}>
+            <TextField hintText="Team Name" onChange={this.createTextFieldChangeHandler('team_name')} />
+            <br />
+            <SelectField
+              floatingLabelText="Team Categories"
+              value={this.state.team_category}
+              onChange={this.createSelectFieldChangeHandler('team_category')}>
+              {this.getMenuItemsByList(TeamCategories)}
+            </SelectField>
+            <br />
+            <TextField hintText="Position Title" onChange={this.createTextFieldChangeHandler('position_title')} />
+            <br />
+            <SelectField
+              floatingLabelText="Position Categories"
+              value={this.state.position_category}
+              onChange={this.createSelectFieldChangeHandler('position_category')}>
+              {this.getMenuItemsByList(PositionCategories)}
+            </SelectField>
+            <br />
+            <TextField hintText="Contact Info" onChange={this.createTextFieldChangeHandler('contact_info')} /><br />
+            <SelectField
+                floatingLabelText="Schools/Communities"
+                value={this.state.school}
+                onChange={this.createSelectFieldChangeHandler('school')}>
+                {this.getMenuItemsByList(Schools)}
+            </SelectField>
+            <br />
+            <TextField
+              hintText="Description"
+              multiLine={true}
+              rows={10}
+              rowsMax={20}
+              onChange={this.createTextFieldChangeHandler('description')} />
+            <br />
+            <input type="submit" label="Submit" />
+          </form>
+        </section>
+      );
     }
 }
 

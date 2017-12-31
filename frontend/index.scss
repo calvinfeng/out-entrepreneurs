@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+* {
+  font-family: Roboto;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+}
+
+#react-application {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.index {
+  display: inherit;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+
+  .content-container {
+    display: inherit;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: calc(95% - 48px);
+
+    .home {
+      width: 960px;
+      display: inherit;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .teams {
+      width: 960px;
+      display: inherit;
+      height: 100%;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-direction: column;
+      overflow: scroll;
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .team-item {
+        width: 100%;
+        flex-direction: column;
+        margin: 0.5rem;
+        padding: 0.5rem;
+      }
+    }
+
+    .team-form {
+      width: 960px;
+      display: inherit;
+      height: 100%;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-direction: column;
+    }
+
+    .talents {
+      width: 960px;
+      display: inherit;
+      height: 100%;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-direction: column;
+      overflow: scroll;
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .talent-item {
+        display: inherit;
+        width: 100%;
+        margin: 0.5rem;
+        flex-direction: row;
+
+        .talent-info {
+          display:inherit;
+          flex-direction: column;
+          padding: 1rem;
+        }
+      }
+    }
+  }
+
+  .footer {
+    display: inherit;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+    height: 5%;
+    padding: 0.5rem;
+  }
+}

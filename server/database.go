@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	"goyak/model"
+	"out-entrepreneurs/server/model"
 )
 
 // SetupDatabase will perform database connection and auto migration on all gorm.Models
@@ -17,7 +17,7 @@ func SetupDatabase() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	db.AutoMigrate(&model.User{}, &model.Message{}, &model.ChatRoom{}, &model.Team{})
+	db.AutoMigrate(&model.Team{})
 
 	return db, nil
 }

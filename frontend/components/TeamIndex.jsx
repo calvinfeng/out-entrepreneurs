@@ -1,13 +1,11 @@
 import React from 'react';
+import Paper from 'material-ui/Paper';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import axios from 'axios';
 
-const style = {
-    marginRight: 20
-};
 
-class TeamPage extends React.Component {
+class TalentIndex extends React.Component {
     state = { teams: [] };
 
     componentDidMount() {
@@ -19,35 +17,32 @@ class TeamPage extends React.Component {
     }
 
     get teamList() {
-        return this.state.teams.map((team) => {
-            return (
-                <li>
-                    <img src={"https://media-exp2.licdn.com/media/p/7/005/0a4/3ce/1084a80.jpg"} />
-                    <p>Name: {team.team_name}</p>
-                    <p>Team: {team.team_category}</p>
-                    <p>Position Title: {team.position_title}</p>
-                    <p>Position Category: {team.position_category}</p>
-                    <p>School: {team.school}</p>
-                    <p>Description: {team.description}</p>
-                    <p>Contact Info: {team.contact_info}</p>
-                </li>
-            );
-        })
+      return this.state.teams.map((team) => {
+        return (
+          <Paper zDepth={1} className="team-item" key={team.ID}>
+            <p>Name: {team.team_name}</p>
+            <p>Team: {team.team_category}</p>
+            <p>Position Title: {team.position_title}</p>
+            <p>Position Category: {team.position_category}</p>
+            <p>School: {team.school}</p>
+            <p>Description: {team.description}</p>
+            <p>Contact Info: {team.contact_info}</p>
+          </Paper>
+        );
+      });
     }
 
     render() {
         return (
-            <section>
+            <section className="teams">
                 <h1>Teams</h1>
-                <FloatingActionButton style={style} onClick={this.props.handleClickAddTeam}>
+                <FloatingActionButton onClick={this.props.handleNavigateToTeamForm}>
                     <ContentAdd />
                 </FloatingActionButton>
-                <ul>
-                    {this.teamList}
-                </ul>
+                {this.teamList}
             </section>
         );
     }
 }
 
-export default TeamPage;
+export default TalentIndex;

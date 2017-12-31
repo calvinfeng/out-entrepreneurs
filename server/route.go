@@ -14,12 +14,13 @@ func LoadRoutes(db *gorm.DB) http.Handler {
 
 	// Instantiate router
 	muxRouter := mux.NewRouter().StrictSlash(true)
-	muxRouter.PathPrefix("/").Handler(http.FileServer(http.Dir("public")))
 
 	// Name-spacing the API
 	api := muxRouter.PathPrefix("/api").Subrouter()
 	api.Handle("/teams", handler.NewTeamCreateHandler(db)).Methods("POST")
 	api.Handle("/teams", handler.NewTeamListHandler(db)).Methods("GET")
+
+	muxRouter.PathPrefix("/").Handler(http.FileServer(http.Dir("public")))
 
 	// NOTE: CORS is probably not necessary because API calls are only coming from frontend
 	return handlers.CORS()(logMiddleware(muxRouter))

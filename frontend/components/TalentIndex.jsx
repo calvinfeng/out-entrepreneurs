@@ -1,4 +1,5 @@
 import React from 'react';
+import Paper from 'material-ui/Paper';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
@@ -6,7 +7,7 @@ const style = {
     marginRight: 20
 };
 
-class TalentPage extends React.Component {
+class TalentIndex extends React.Component {
     state = {
         talents: [
             "Calvin Feng",
@@ -18,27 +19,27 @@ class TalentPage extends React.Component {
     get talentList() {
         return this.state.talents.map((name) => {
             return (
-                <li>
+                <Paper zDepth={1} className="talent-item">
                     <img src={"https://media-exp2.licdn.com/media/p/7/005/0a4/3ce/1084a80.jpg"} />
-                    <p>{name}</p>
-                </li>
+                    <div className="talent-info">
+                      <p>{name}</p>
+                    </div>
+                </Paper>
             );
         })
     }
 
     render() {
         return (
-            <section>
+            <section className="talents">
                 <h1>Talents</h1>
                 <FloatingActionButton style={style} onClick={this.props.handleClickAddTalent}>
                     <ContentAdd />
                 </FloatingActionButton>
-                <ul>
-                    {this.talentList}
-                </ul>
+                {this.talentList}
             </section>
         );
     }
 }
 
-export default TalentPage;
+export default TalentIndex;
